@@ -14,7 +14,7 @@ Open the starter project in the latest stable version of Android Studio.
 
 Open the starter project in Android Studio
 
-##Steps
+Steps
 
 1. Open the starter project in Android Studio
 
@@ -76,3 +76,7 @@ Open the starter project in Android Studio
     * Observe the shoes variable from the ViewModel
     * Use DataBindingUtil to inflate the shoe_list layout
     * Add a new layout item into the scrollview for each shoe.
+    
+    
+Credits for Shoe Icon Logo
+https://www.flaticon.com/free-icon/shoes_866692?term=shoe&page=1&position=1&related_item_id=866692
