@@ -16,22 +16,27 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.udacity.shoestore.R
+import com.udacity.shoestore.data.models.Shoe
 import com.udacity.shoestore.databinding.FragmentShoeListBinding
+import com.udacity.shoestore.databinding.ItemShoeBinding
 import com.udacity.shoestore.ui.MainActivityViewModel
 import com.udacity.shoestore.ui.adapter.ShoeAdapter
+import kotlinx.android.synthetic.main.item_shoe.view.*
 
 class ShoeListFragment : Fragment() {
 
     private lateinit var binding: FragmentShoeListBinding
-    private val viewModel: MainActivityViewModel by viewModels()
-
-    private val mAdapter: ShoeAdapter by lazy { ShoeAdapter() }
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentShoeListBinding.inflate(layoutInflater, container, false)
+
+        viewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+        binding.mainActivityViewModel = viewModel
+
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -39,15 +44,16 @@ class ShoeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerviewShoes.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = mAdapter
-            mAdapter.notifyDataSetChanged()
-        }
-
         viewModel.shoes.observe(viewLifecycleOwner, Observer {
-            mAdapter.submitList(viewModel.shoes.value?.asReversed())
-            mAdapter.notifyDataSetChanged()
+            viewModel.shoes.value?.asReversed()?.map {
+                val itemShoeBinding = ItemShoeBinding.inflate(layoutInflater, binding.linearlayoutShoeList, false)
+                val cardView = itemShoeBinding.cardviewShoeItem
+                cardView.textview_shoe_name.text = it.name.capitalize()
+                cardView.textview_shoe_company.text =  it.company
+                cardView.textview_shoe_size.text = "Size: ${it.size}"
+                cardView.textview_shoe_description.text = it.description
+                binding.linearlayoutShoeList.addView(cardView)
+            }
         })
 
         binding.fabAddShoe.setOnClickListener {

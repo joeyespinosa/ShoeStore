@@ -33,7 +33,7 @@ class MainActivityViewModel: ViewModel(), Observable {
         repeat(3) {
             _shoes.value?.add(
                 Shoe(
-                    name = "${getRandomShoeName() } ${it + 1}",
+                    name = "Sample Shoe ${it + 1}",
                     company = "Sample ${it + 1}",
                     description = "This is a test description${it + 1}",
                     size = (it + 1).toDouble()
@@ -42,6 +42,8 @@ class MainActivityViewModel: ViewModel(), Observable {
         }
 
         _isShoeAdded.value = false
+
+        Timber.i("Shoes: ${_shoes.value?.map { it.name }}")
     }
 
     private fun getRandomShoeName() : String {

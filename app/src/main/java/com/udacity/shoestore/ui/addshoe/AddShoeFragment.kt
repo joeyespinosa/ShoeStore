@@ -15,13 +15,18 @@ import com.udacity.shoestore.ui.MainActivityViewModel
 
 class AddShoeFragment : Fragment() {
     lateinit var binding: FragmentAddShoeBinding
-    private val viewModel: MainActivityViewModel by viewModels()
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddShoeBinding.inflate(layoutInflater, container, false)
+
+        viewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
         return binding.root
     }
 

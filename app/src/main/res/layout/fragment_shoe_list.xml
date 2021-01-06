@@ -5,10 +5,15 @@
     tools:context=".ui.shoelist.ShoeListFragment">
 
     <data>
+
         <variable
             name="mainActivityViewModel"
             type="com.udacity.shoestore.ui.MainActivityViewModel" />
     </data>
+
+    <!--
+     Constraint layout is used for the positioning of the FAB
+    -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,10 +32,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recyclerview_shoes" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linearlayout_shoe_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
